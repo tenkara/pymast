@@ -33,10 +33,10 @@ song_titles = [song.getText(strip=True) for song in all_songs]
 print(song_titles)
 
 
+Client ID 8344a34f3d1a4e09b34b49ef43d740ac
 
 
-
-
+Client Secret e4370b88bd074bf988462932f2587cbc
 
 
 
