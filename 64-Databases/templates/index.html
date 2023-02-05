@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+</head>
+<body>
+<h1>My Library</h1>
+    <p>
+        {% if books %}
+            Here are all the books in your library:
+        {% else %}
+            You have no books in your library.
+        {% endif %}
+    </p>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} by {{ book.author }} with a rating of {{ book.rating }}</li>
+        {% endfor %}
+    </ul>
+    
+<a href="{{ url_for('add') }}">Add New Book</a>
+</body>
+</html>
