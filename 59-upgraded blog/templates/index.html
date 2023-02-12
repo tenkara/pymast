@@ -28,7 +28,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('home') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('about') }}">About</a></li>
                         <!-- <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li> -->
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('contact') }}">Contact</a></li>
@@ -48,14 +48,14 @@
                     {% for blog_post in posts %}
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="{{ url_for('post') }}">
+                        <a href="{{ url_for('post', index=blog_post.id) }}">
                             <h2 class="post-title">{{ blog_post.title }}</h2>
                             <h3 class="post-subtitle">{{ blog_post.subtitle }}</h3>
                         </a>
                         <p class="post-meta">
                             Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 24, 2022
+                            <a href="#!">{{ blog_post.author }}</a>
+                            on {{ blog_post.date }}
                         </p>
                     </div>
                     <!-- Divider-->
