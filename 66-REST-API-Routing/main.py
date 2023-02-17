@@ -58,7 +58,19 @@ def all():
                 dict_cafe[key] = value
         dict_cafes.append(dict_cafe)
     return jsonify(cafes=dict_cafes)
-    
+
+## HTTP GET Search - Read Record
+@app.route("/search", methods=["GET"])
+def search():
+    query_location = request.args.get("loc")
+    cafe = db.session.query(Cafe).filter_by(location=query_location).first()
+    if cafe:
+        return jsonify(cafe=cafe)
+    else:
+        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
+
+
+
 
 ## HTTP POST - Create Record
 
