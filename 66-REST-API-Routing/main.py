@@ -25,11 +25,6 @@ class Cafe(db.Model):
     can_take_calls = db.Column(db.Boolean, nullable=False)
     coffee_price = db.Column(db.String(250), nullable=True)
 
-
-# with app.app_context():
-#     db.create_all()
-
-
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -48,6 +43,22 @@ def random():
     return jsonify(cafe=dict_cafe)
 
 ## HTTP GET - Read Record
+
+## HTTP GET All - Read all Records
+@app.route("/all")
+def all():
+    cafes = db.session.query(Cafe).all()
+    # print(cafes)
+    # convert to dictionary
+    dict_cafes = []
+    for cafe in cafes:
+        dict_cafe = {}
+        for key, value in cafe.__dict__.items():
+            if not key.startswith("_sa_"):
+                dict_cafe[key] = value
+        dict_cafes.append(dict_cafe)
+    return jsonify(cafes=dict_cafes)
+    
 
 ## HTTP POST - Create Record
 
