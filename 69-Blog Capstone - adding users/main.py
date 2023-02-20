@@ -17,6 +17,7 @@ Bootstrap(app)
 
 ##CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -41,8 +42,16 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
-app.app_context().push()
-db.create_all()
+# app.app_context().push()
+# db.create_all()
+
+# LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/')
@@ -51,7 +60,7 @@ def get_all_posts():
     return render_template("index.html", all_posts=posts)
 
 
-@app.route('/register')
+@app.route('/register', methods=["GET", "POST"])
 def register():
     quick_register = RegisterForm()
     if quick_register.validate_on_submit():
@@ -59,7 +68,7 @@ def register():
         password = quick_register.password.data
         name = quick_register.name.data
         # Check if email already exists in database
-        user = BlogPost.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first()
         if user:
             # User already exists
             flash("You've already signed up with that email, log in instead!")
@@ -77,18 +86,38 @@ def register():
             db.session.commit()
             
             # Log in and authenticate user after adding details to database.
-            login_user(new_user)
+            # login_user(new_user)
             return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=quick_register)
 
 
-@app.route('/login')
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+        # Check if email exists in database
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Hashed password in database
+            if check_password_hash(user.password, password):
+                # Password entered matches hashed password in database
+                login_user(user)
+                return redirect(url_for('get_all_posts'))
+            else:
+                flash("Password incorrect, please try again.")
+                return redirect(url_for('login', form=form))
+        else:
+            flash("That email does not exist, please try again.")
+            return redirect(url_for('login', form=form))
+
+    return render_template("login.html", form=form)
 
 
 @app.route('/logout')
 def logout():
+    logout_user()
     return redirect(url_for('get_all_posts'))
 
 
