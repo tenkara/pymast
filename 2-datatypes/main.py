@@ -51,6 +51,21 @@ num = input("Enter a two digit number: ")
 print(f"Your number is {num}")
 print(f"Your number is {int(num[0]) + int(num[1])}")
 
+#PEMDAS
+#Parentheses
+#Exponents
+#Multiplication
+#Division
+#Addition
+#Subtraction
+
+#BMI Calculator
+height = input("enter your height in m: ")
+weight = input("enter your weight in kg: ")
+bmi = int(weight) / float(height) ** 2
+bmi_as_int = int(bmi)
+print(bmi_as_int)
+
 
 
 
