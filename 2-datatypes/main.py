@@ -47,9 +47,9 @@ print(123 + int("456"))
 #Type Error
 print(str(123) + str(456))
 
-num = input("Enter a two digit number: ")
-print(f"Your number is {num}")
-print(f"Your number is {int(num[0]) + int(num[1])}")
+# num = input("Enter a two digit number: ")
+# print(f"Your number is {num}")
+# print(f"Your number is {int(num[0]) + int(num[1])}")
 
 #PEMDAS
 #Parentheses
@@ -59,12 +59,15 @@ print(f"Your number is {int(num[0]) + int(num[1])}")
 #Addition
 #Subtraction
 
+
 #BMI Calculator
-height = input("enter your height in m: ")
-weight = input("enter your weight in kg: ")
+height = input("enter your height in m: ") or "1.75"
+weight = input("enter your weight in kg: ") or "60"
 bmi = int(weight) / float(height) ** 2
 bmi_as_int = int(bmi)
 print(bmi_as_int)
+print(f"Your BMI is {bmi}")
+print(f"Your BMI is {round(bmi, 2)}")
 
 
 
