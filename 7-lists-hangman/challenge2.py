@@ -11,12 +11,20 @@ for letter in chosen_word:
     display.append("_")
 print(display)
 
-guess = input("Guess a letter: ").lower()    
+# guess = input("Guess a letter: ").lower()    
 
 # TODO-2 - Loop through each position in the chosen_word;
 # if the letter is that position matches the guess then reveal that letter in the display at that position
-for guess in chosen_word:
-    display[chosen_word.index(guess)] = guess
+# for i in range(len(chosen_word)):
+#     if guess == chosen_word[i]:
+#         display[i] = guess
+# print(display)
 
 # TODO-3 - Print 'display' and you should see the guessed letter in the correct position and every other letter replace with "_"
-print(display)
+
+while "_" in display:
+    guess = input("Guess a letter: ").lower()
+    for i in range(len(chosen_word)):
+        if guess == chosen_word[i]:
+            display[i] = guess
+    print(display)
