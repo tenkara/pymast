@@ -16,3 +16,9 @@ with open('file2.txt') as file2:
 
 result = [int(num) for num in file1_nums if num in file2_nums]
 print(result)
+
+import random
+names = ['Alex', 'Beth', 'Caroline', 'Dave', 'Eleanor', 'Freddie']
+student_scores = {student: random.randint(1, 100) for student in names}
+passed_students = {student: score for (student, score) in student_scores.items() if score >= 60}
+print(passed_students)
