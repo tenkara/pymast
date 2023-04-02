@@ -27,3 +27,18 @@ print(data.condition)
 
 # Get data in row
 print(data[data.day == "Monday"])
+print(data[data.temp == data.temp.max()])
+
+monday = data[data.day == "Monday"]
+# Convert Celsius to Fahrenheit
+monday_temp = int(monday.temp)*9/5 + 32
+print(monday_temp)
+
+# Create a dataframe from scratch
+data_dict = {
+    "students": ["Amy", "James", "Angela"],
+    "scores": [76, 56, 65]
+}
+
+data = pandas.DataFrame(data_dict)
+data.to_csv("new_data.csv")
