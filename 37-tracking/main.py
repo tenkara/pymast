@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
+import datetime
 
 load_dotenv()
 
@@ -31,4 +32,19 @@ headers = {
     "X-USER-TOKEN": os.getenv("PIXELA_TOKEN")
 }
 
-requests.post(url=graph_endpoint, json=graph_config, headers=headers)
+# requests.post(url=graph_endpoint, json=graph_config, headers=headers)
+# print(response.text)
+
+pixel_creation_endpoint = f"{pixela_endpoint}/{os.getenv('PIXELA_USERNAME')}/graphs/{graph_config['id']}"
+
+# today = "20230402"
+today = datetime.datetime.now()
+today = today.strftime("%Y%m%d")
+
+pixel_data = {
+    "date": today,
+    "quantity": input("How many kilometers did you cycle today? "),
+}
+
+response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+print(response.text)
