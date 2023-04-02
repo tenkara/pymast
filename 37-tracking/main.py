@@ -46,5 +46,19 @@ pixel_data = {
     "quantity": input("How many kilometers did you cycle today? "),
 }
 
-response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+# response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+# print(response.text)
+
+update_pixel_endpoint = f"{pixela_endpoint}/{os.getenv('PIXELA_USERNAME')}/graphs/{graph_config['id']}/{today}"
+
+# new_pixel_data = {
+#     "quantity": "4.56",
+# }
+
+response = requests.put(url=update_pixel_endpoint, json=pixel_data, headers=headers)
 print(response.text)
+
+# delete_pixel_endpoint = f"{pixela_endpoint}/{os.getenv('PIXELA_USERNAME')}/graphs/{graph_config['id']}/{today}"
+
+# response = requests.delete(url=delete_pixel_endpoint, headers=headers)
+# print(response.text)
